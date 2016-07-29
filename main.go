@@ -14,8 +14,26 @@
 
 package main
 
+import (
+	"os"
+
+	"git.cwengo.com/cwen/ljgo/cmd"
+
+	"github.com/urfave/cli"
+)
+
 const APP_VER = "0.0.1-beat"
 
 func main() {
-
+	app := cli.NewApp()
+	app.Name = "ligo"
+	app.Usage = "An elegant static blog generator"
+	app.Version = APP_VER
+	app.Commands = []cli.Command{
+		cmd.CmdBuild,
+		cmd.CmdPublish,
+		cmd.CmdServer,
+	}
+	// app.Flags = append(app.Flags, []cli.Flag{}...)
+	app.Run(os.Args)
 }
