@@ -17,7 +17,7 @@ package main
 import (
 	"os"
 
-	"git.cwengo.com/cwen/ljgo/cmd"
+	"git.cwengo.com/cwen/ljgo/command"
 
 	"github.com/urfave/cli"
 )
@@ -30,9 +30,9 @@ func main() {
 	app.Usage = "An elegant static blog generator"
 	app.Version = APP_VER
 	app.Commands = []cli.Command{
-		cmd.CmdBuild,
-		cmd.CmdPublish,
-		cmd.CmdServer,
+		command.CmdBuild,
+		command.CmdPublish,
+		command.CmdServer,
 	}
 	// app.Flags = append(app.Flags, []cli.Flag{}...)
 	app.Run(os.Args)

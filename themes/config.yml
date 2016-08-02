@@ -1,0 +1,13 @@
+site:
+    title: cwen - 沉稳,不乏可爱
+    introduce: 代码, 笔记, 生活与闲扯
+    limit: 10
+    theme: default
+    url: http://liujia.mom
+
+author:
+    name: cwen
+build:
+    port: 3000
+    copy:
+    publish: |
