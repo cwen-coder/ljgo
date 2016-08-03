@@ -26,9 +26,9 @@ type BuildConfig struct {
 }
 
 type Config struct {
-	Site   SiteConfig
-	Author AuthorConfig
-	Build  BuildConfig
+	Site   SiteConfig   `yaml:"site"`
+	Author AuthorConfig `yaml:"author"`
+	Build  BuildConfig  `yaml:"build"`
 }
 
 //func newConfig() *Config {
@@ -43,7 +43,7 @@ func ParseConfig(path string) (*Config, error) {
 		return nil, fmt.Errorf("Read config: %v", err)
 	}
 
-	if err = yaml.Unmarshal(data, configT); err != nil {
+	if err = yaml.Unmarshal(data, &configT); err != nil {
 		return nil, fmt.Errorf("Unmarshal config: %v", err)
 	}
 

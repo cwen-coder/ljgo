@@ -9,5 +9,6 @@ author:
     name: cwen
 build:
     port: 3000
-    copy:
-    publish: |
+    copy: 
+        - "sdsdsd"
+    publish: fdfdf
