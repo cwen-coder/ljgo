@@ -8,21 +8,22 @@ import (
 )
 
 type SiteConfig struct {
-	Title     string
-	Introduce string
-	Limit     int
-	Theme     string
-	URL       string
+	Title     string `yaml:"title"`
+	Introduce string `yaml:"introduce"`
+	Limit     int    `yaml:"limit"`
+	Theme     string `yaml:"theme"`
+	URL       string `yaml:"url"`
+	Comment   string `yaml:"comment"`
 }
 
 type AuthorConfig struct {
-	Name string
+	Name string `yaml:"name"`
 }
 
 type BuildConfig struct {
-	Port    string
-	Copy    []string
-	Publish string
+	Port    string   `yaml:"port"`
+	Copy    []string `yaml:"copy"`
+	Publish string   `yaml:"publish"`
 }
 
 type Config struct {

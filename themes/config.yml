@@ -4,7 +4,7 @@ site:
     limit: 10
     theme: default
     url: http://liujia.mom
-
+    comment: cwengo
 author:
     name: cwen
 build:
@@ -12,3 +12,4 @@ build:
     copy: 
         - "sdsdsd"
     publish: fdfdf
+
