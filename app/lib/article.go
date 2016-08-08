@@ -1,8 +1,13 @@
 package lib
 
 import (
+	"fmt"
 	"html/template"
+	"io/ioutil"
+	"strings"
 	"time"
+
+	"gopkg.in/yaml.v2"
 )
 
 const (
@@ -10,27 +15,45 @@ const (
 	MORE_SPLIT   = "<!--more-->"
 )
 
-type MarkdownArticle struct {
+type ConfigArticle struct {
 	Title   string
 	Date    time.Time
 	Update  time.Time
-	Preview string
 	Tags    []string
 	Content string
 }
 
-func (m *MarkdownArticle) ParseArticle(path string) (*Article, error) {
-	//data, err := ioutil.ReadFile(path)
-	//if err != nil {
-	//return nil, fmt.Errorf("read article: %v", err)
-	//}
-}
-
 type Article struct {
 	SiteConfig
-	MarkdownArticle
+	ConfigArticle
 	AuthorConfig
 	Preview template.HTML
 	Content template.HTML
 	Link    string
+}
+
+func (a *Article) ParseArticle(path string) error {
+	data, err := ioutil.ReadFile(path)
+	if err != nil {
+		return fmt.Errorf("read article: %v", err)
+	}
+	dataStr := string(data)
+	markdownStr := strings.SplitN(dataStr, CONFIG_SPLIT, 2)
+	dataLen := len(markdownStr)
+
+	var configStr string
+	var contentStr string
+	if dataLen > 0 {
+		configStr = markdownStr[0]
+	}
+
+	if dataLen > 1 {
+		contentStr = markdownStr[1]
+	}
+
+	if err = yaml.Unmarshal([]byte(configStr), &a.ConfigArticle); err != nil {
+		return fmt.Errorf("Unmarshal configArticle: %v", err)
+	}
+
+	return nil
 }
