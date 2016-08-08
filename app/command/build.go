@@ -2,10 +2,12 @@ package command
 
 import (
 	"fmt"
+	"log"
 	"os"
 	"os/signal"
 	"syscall"
 
+	"git.cwengo.com/cwen/ljgo/app/lib"
 	"github.com/urfave/cli"
 )
 
@@ -31,5 +33,9 @@ func runBuild(c *cli.Context) error {
 }
 
 func build() {
-
+	var article lib.Article
+	err := article.ParseArticle("./source/article.md")
+	if err != nil {
+		log.Println(err)
+	}
 }

@@ -7,6 +7,8 @@ import (
 	"strings"
 	"time"
 
+	"git.cwengo.com/cwen/ljgo/app/util"
+
 	"gopkg.in/yaml.v2"
 )
 
@@ -16,20 +18,25 @@ const (
 )
 
 type ConfigArticle struct {
-	Title   string
-	Date    time.Time
-	Update  time.Time
-	Tags    []string
-	Content string
+	Title  string
+	Date   string
+	Update string
+	Tags   []string
 }
 
 type Article struct {
 	SiteConfig
 	ConfigArticle
 	AuthorConfig
+	Date    time.Time
+	Update  time.Time
 	Preview template.HTML
 	Content template.HTML
 	Link    string
+}
+
+func NewArticle() *Article {
+	return &Article{}
 }
 
 func (a *Article) ParseArticle(path string) error {
@@ -54,6 +61,38 @@ func (a *Article) ParseArticle(path string) error {
 	if err = yaml.Unmarshal([]byte(configStr), &a.ConfigArticle); err != nil {
 		return fmt.Errorf("Unmarshal configArticle: %v", err)
 	}
+	err = a.ParseDate(a.ConfigArticle.Date, a.ConfigArticle.Update)
+	if err != nil {
+		return err
+	}
 
+	a.ParseMarkdown(contentStr)
+
+	fmt.Println(a)
 	return nil
+}
+
+func (a *Article) ParseDate(date, update string) error {
+
+	var err error
+	a.Date, err = util.ParseDate(date)
+	if err != nil {
+		return fmt.Errorf("parse date: %v", err)
+	}
+	a.Update, err = util.ParseDate(update)
+	if err != nil {
+		return fmt.Errorf("parse update: %v", err)
+	}
+	return nil
+}
+
+func (a *Article) ParseMarkdown(contentStr string) {
+	contentArr := strings.SplitN(contentStr, MORE_SPLIT, 2)
+	if len(contentArr) > 1 {
+		a.Preview = util.ParseMarkdown(contentArr[0])
+	}
+
+	contentStr = strings.Replace(contentStr, MORE_SPLIT, "", 1)
+
+	a.Content = util.ParseMarkdown(contentStr)
 }
