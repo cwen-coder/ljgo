@@ -32,10 +32,6 @@ type Config struct {
 	Build  BuildConfig  `yaml:"build"`
 }
 
-//func newConfig() *Config {
-//return &Config{}
-//}
-
 func ParseConfig(path string) (*Config, error) {
 	var configT *Config
 

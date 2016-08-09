@@ -68,7 +68,6 @@ func (a *Article) ParseArticle(path string) error {
 
 	a.ParseMarkdown(contentStr)
 
-	fmt.Println(a)
 	return nil
 }
 

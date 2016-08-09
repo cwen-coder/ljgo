@@ -2,12 +2,13 @@ package command
 
 import (
 	"fmt"
-	"log"
+	"io/ioutil"
 	"os"
 	"os/signal"
+	"path/filepath"
 	"syscall"
 
-	"git.cwengo.com/cwen/ljgo/app/lib"
+	"github.com/qiniu/log"
 	"github.com/urfave/cli"
 )
 
@@ -22,6 +23,7 @@ func runBuild(c *cli.Context) error {
 	signalChan := make(chan os.Signal)
 	signal.Notify(signalChan, syscall.SIGINT, syscall.SIGTERM)
 
+	InitRootPath(c)
 	build()
 
 	go func() {
@@ -33,9 +35,16 @@ func runBuild(c *cli.Context) error {
 }
 
 func build() {
-	var article lib.Article
-	err := article.ParseArticle("./source/article.md")
+	themePath := filepath.Join(rootPath, globalConfig.Site.Theme)
+	partialPath := filepath.Join(themePath, "Tpl")
+	files, err := filepath.Glob(filepath.Join(partialPath, "*.tpl"))
 	if err != nil {
-		log.Println(err)
+		log.Fatal(err)
+	}
+	for _, path := range files {
+		_, err := ioutil.ReadFile(path)
+		if err != nil {
+			log.Fatal(err)
+		}
 	}
 }
