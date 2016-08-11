@@ -42,7 +42,16 @@ func build() {
 	partialTpl := buildPartialTpl(partialPath)
 
 	articleTpl := buildTpl(filepath.Join(themePath, "article.html"), partialTpl, "article")
+	indexTpl := buildTpl(filepath.Join(themePath, "index.html"), partialTpl, "index")
+
 	log.Info(articleTpl)
+	log.Info(indexTpl)
+
+	publicPath := filepath.Join(rootPath, "public")
+	cleanPatterns := []string{"static", "js", "css", "img", "vendor", "*.html"}
+	cleanTpl(publicPath, cleanPatterns)
+
+	// sourcePath := filepath.Join(rootPath, "source")
 }
 
 func buildPartialTpl(path string) string {
@@ -77,4 +86,16 @@ func buildTpl(path string, partialTpl string, name string) template.Template {
 		log.Fatal(err)
 	}
 	return *tpl
+}
+
+func cleanTpl(cleanPath string, cleanPatterns []string) {
+	for _, pattern := range cleanPatterns {
+		files, err := filepath.Glob(filepath.Join(cleanPath, pattern))
+		if err != nil {
+			continue
+		}
+		for _, path := range files {
+			os.RemoveAll(path)
+		}
+	}
 }
