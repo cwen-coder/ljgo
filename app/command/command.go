@@ -5,15 +5,15 @@ import (
 
 	"github.com/urfave/cli"
 
-	"git.cwengo.com/cwen/ljgo/app/lib"
+	"git.cwengo.com/cwen/ljgo/app/library"
 )
 
-var globalConfig *lib.Config
+var globalConfig *library.Config
 var rootPath string
 
 func init() {
 	var err error
-	globalConfig, err = lib.ParseConfig("./themes/config.yml")
+	globalConfig, err = library.ParseConfig("./themes/config.yml")
 	if err != nil {
 		log.Fatal(err)
 	}
