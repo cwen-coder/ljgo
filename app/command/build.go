@@ -10,6 +10,9 @@ import (
 	"strings"
 	"syscall"
 
+	"git.cwengo.com/cwen/ljgo/app/library"
+	"git.cwengo.com/cwen/ljgo/app/render"
+
 	"github.com/qiniu/log"
 	"github.com/urfave/cli"
 )
@@ -51,7 +54,28 @@ func build() {
 	cleanPatterns := []string{"static", "js", "css", "img", "vendor", "*.html"}
 	cleanTpl(publicPath, cleanPatterns)
 
-	// sourcePath := filepath.Join(rootPath, "source")
+	sourcePath := filepath.Join(rootPath, "source")
+
+	articles := walkArticle(sourcePath)
+	render.RenderArticles(articleTpl, articles, publicPath)
+}
+
+func walkArticle(path string) []library.Article {
+	articles := make([]library.Article, 0)
+	filepath.Walk(path, func(path string, info os.FileInfo, err error) error {
+		fileExt := strings.ToLower(filepath.Ext(path))
+		if fileExt != ".md" {
+			return nil
+		}
+		var article library.Article
+		err = article.ParseArticle(path)
+		if err != nil {
+			log.Fatal(err)
+		}
+		articles = append(articles, article)
+		return nil
+	})
+	return articles
 }
 
 func buildPartialTpl(path string) string {
@@ -67,9 +91,10 @@ func buildPartialTpl(path string) string {
 		}
 		fileName := filepath.Base(path)
 		fileName = strings.TrimSuffix(strings.TrimPrefix(fileName, "T."), ".tpl")
-		htmlStr := "{define \"" + fileName + " \"}" + string(html) + "{end}"
+		htmlStr := "{{define \"" + fileName + "\"}}" + string(html) + "{{end}}"
 		partialTpl += htmlStr
 	}
+	log.Info(partialTpl)
 	return partialTpl
 }
 

@@ -18,6 +18,7 @@
     </header>
 
     <!-- Post Content -->
+    {{.Preview }}
     <article>
         <div class="container">
             <div class="row">
@@ -63,8 +64,8 @@
 
     <hr>
 
-    {{template "comment" .}}
-    {{template "footer" .}}
+{{template "comment" .}}
+{{template "footer" .}}
 
 </body>
 
