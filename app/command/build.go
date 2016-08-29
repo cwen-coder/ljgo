@@ -12,6 +12,7 @@ import (
 
 	"git.cwengo.com/cwen/ljgo/app/library"
 	"git.cwengo.com/cwen/ljgo/app/render"
+	"git.cwengo.com/cwen/ljgo/app/util"
 
 	"github.com/qiniu/log"
 	"github.com/urfave/cli"
@@ -45,10 +46,10 @@ func build() {
 	partialTpl := buildPartialTpl(partialPath)
 
 	articleTpl := buildTpl(filepath.Join(themePath, "article.html"), partialTpl, "article")
-	indexTpl := buildTpl(filepath.Join(themePath, "index.html"), partialTpl, "index")
+	//	indexTpl := buildTpl(filepath.Join(themePath, "index.html"), partialTpl, "index")
 
-	log.Info(articleTpl)
-	log.Info(indexTpl)
+	//log.Info(articleTpl)
+	//log.Info(indexTpl)
 
 	publicPath := filepath.Join(rootPath, "public")
 	cleanPatterns := []string{"static", "js", "css", "img", "vendor", "*.html"}
@@ -58,6 +59,8 @@ func build() {
 
 	articles := walkArticle(sourcePath)
 	render.RenderArticles(articleTpl, articles, publicPath)
+	staticPath := filepath.Join(themePath, "static")
+	copyStaticFile(staticPath, publicPath)
 }
 
 func walkArticle(path string) []library.Article {
@@ -94,7 +97,7 @@ func buildPartialTpl(path string) string {
 		htmlStr := "{{define \"" + fileName + "\"}}" + string(html) + "{{end}}"
 		partialTpl += htmlStr
 	}
-	log.Info(partialTpl)
+	// log.Info(partialTpl)
 	return partialTpl
 }
 
@@ -121,6 +124,32 @@ func cleanTpl(cleanPath string, cleanPatterns []string) {
 		}
 		for _, path := range files {
 			os.RemoveAll(path)
+		}
+	}
+}
+
+func copyStaticFile(staticPath, publicPath string) {
+	matches, err := filepath.Glob(staticPath)
+	if err != nil {
+		log.Fatalf("glob %v: %v", staticPath, err)
+	}
+	for _, srcPath := range matches {
+		file, err := os.Stat(srcPath)
+		if err != nil {
+			log.Fatalf("copy static failed: %v", err)
+		}
+		filename := file.Name()
+		destPath := filepath.Join(publicPath, filename)
+		if file.IsDir() {
+			err = util.CopyDir(srcPath, destPath)
+			if err != nil {
+				log.Fatalf("Copy %v: %v", filename, err)
+			}
+		} else {
+			err = util.CopyFile(srcPath, destPath)
+			if err != nil {
+				log.Fatalf("Copy %v: %v", filename, err)
+			}
 		}
 	}
 }
