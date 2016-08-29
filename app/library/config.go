@@ -16,9 +16,9 @@ type SiteConfig struct {
 	Comment   string `yaml:"comment"`
 }
 
-type AuthorConfig struct {
-	Name string `yaml:"name"`
-}
+//type AuthorConfig struct {
+//Name string `yaml:"name"`
+//}
 
 type BuildConfig struct {
 	Port    string   `yaml:"port"`
@@ -27,9 +27,9 @@ type BuildConfig struct {
 }
 
 type Config struct {
-	Site   SiteConfig   `yaml:"site"`
-	Author AuthorConfig `yaml:"author"`
-	Build  BuildConfig  `yaml:"build"`
+	Site SiteConfig `yaml:"site"`
+	//Author AuthorConfig `yaml:"author"`
+	Build BuildConfig `yaml:"build"`
 }
 
 func ParseConfig(path string) (*Config, error) {

@@ -18,16 +18,17 @@ const (
 )
 
 type ConfigArticle struct {
-	Title  string
-	Date   string
-	Update string
-	Tags   []string
+	Title  string   `yaml:"title"`
+	Date   string   `yaml:"date"`
+	Update string   `yaml:"update"`
+	Tags   []string `yaml:"tags"`
+	Author string   `yaml:"author"`
 }
 
 type Article struct {
 	SiteConfig
 	ConfigArticle
-	AuthorConfig
+	// AuthorConfig
 	Date    time.Time
 	Update  time.Time
 	Preview template.HTML

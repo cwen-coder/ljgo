@@ -54,9 +54,12 @@ func build() {
 	publicPath := filepath.Join(rootPath, "public")
 	cleanPatterns := []string{"static", "js", "css", "img", "vendor", "*.html"}
 	cleanTpl(publicPath, cleanPatterns)
+	err := os.MkdirAll(publicPath, 0777)
+	if err != nil {
+		log.Fatalf("create %v: %v", publicPath, err)
+	}
 
 	sourcePath := filepath.Join(rootPath, "source")
-
 	articles := walkArticle(sourcePath)
 	render.RenderArticles(articleTpl, articles, publicPath)
 	staticPath := filepath.Join(themePath, "static")
@@ -75,6 +78,7 @@ func walkArticle(path string) []library.Article {
 		if err != nil {
 			log.Fatal(err)
 		}
+		article.SiteConfig = globalConfig.Site
 		articles = append(articles, article)
 		return nil
 	})
