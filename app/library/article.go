@@ -26,7 +26,6 @@ type ConfigArticle struct {
 }
 
 type Article struct {
-	SiteConfig
 	ConfigArticle
 	// AuthorConfig
 	Date    time.Time
@@ -66,6 +65,7 @@ func (a *Article) ParseArticle(path string) error {
 	if err != nil {
 		return err
 	}
+	a.Link = a.ConfigArticle.Title + ".html"
 
 	a.ParseMarkdown(contentStr)
 

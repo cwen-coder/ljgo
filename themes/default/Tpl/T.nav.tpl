@@ -7,7 +7,7 @@
                  <span class="sr-only">Toggle navigation</span>
                  Menu <i class="fa fa-bars"></i>
              </button>
-             <a class="navbar-brand" href="index.html">{{.SiteConfig.Title}}</a>
+             <a class="navbar-brand" href="index.html">沉稳，不乏可爱</a>
          </div>
 
          <!-- Collect the nav links, forms, and other content for toggling -->

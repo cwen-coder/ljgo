@@ -46,7 +46,7 @@ func build() {
 	partialTpl := buildPartialTpl(partialPath)
 
 	articleTpl := buildTpl(filepath.Join(themePath, "article.html"), partialTpl, "article")
-	//	indexTpl := buildTpl(filepath.Join(themePath, "index.html"), partialTpl, "index")
+	indexTpl := buildTpl(filepath.Join(themePath, "index.html"), partialTpl, "index")
 
 	//log.Info(articleTpl)
 	//log.Info(indexTpl)
@@ -64,6 +64,8 @@ func build() {
 	render.RenderArticles(articleTpl, articles, publicPath)
 	staticPath := filepath.Join(themePath, "static")
 	copyStaticFile(staticPath, publicPath)
+
+	render.RenderIndex(indexTpl, articles, publicPath)
 }
 
 func walkArticle(path string) []library.Article {
@@ -78,7 +80,6 @@ func walkArticle(path string) []library.Article {
 		if err != nil {
 			log.Fatal(err)
 		}
-		article.SiteConfig = globalConfig.Site
 		articles = append(articles, article)
 		return nil
 	})
