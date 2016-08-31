@@ -1,16 +1,14 @@
-{{template "header" .}}
-<body>
-{{template "nav" .}}
-    <!-- Page Header -->
-    <!-- Set your background image for this header on the line below. -->
-    <header class="intro-header" style="background-image: url('static/img/home-bg.jpg')">
+    {{template "header" .}}
+    <body>
+    {{template "nav" .}}
+    <header class="intro-header" style="background-image: url('static/img/contact-bg.jpg')">
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                    <div class="site-heading">
-                        <h1>{{.Site.Title}}</h1>
+                    <div class="page-heading">
+                        <h1>Archive</h1>
                         <hr class="small">
-                        <span class="subheading">{{.Site.Introduce}}</span>
+                        <span class="subheading"></span>
                     </div>
                 </div>
             </div>
@@ -24,31 +22,22 @@
               {{range .Articles}}
                 <div class="post-preview">
                     <a href="{{.Link}}">
-                        <h2 class="post-title">
+                        <h3 >
                             {{.ConfigArticle.Title}}
-                        </h2>
-                         <h3 class="post-subtitle">
-                            {{.Preview}}
                         </h3>
                     </a>
                     <p class="post-meta">Posted by <a href="#">{{.ConfigArticle.Author}}</a> {{.ConfigArticle.Date}}</p>
                 </div>
                 <hr>
               {{end}}
-                
-                <!-- Pager -->
-                <ul class="pager">
-                    <li class="next">
-                        <a href="#">Older Posts &rarr;</a>
-                    </li>
-                </ul>
             </div>
         </div>
     </div>
 
     <hr>
-    {{template "footer" .}}
 
+    {{template "comment" .}}
+    {{template "footer" .}}
 
 </body>
 

@@ -47,9 +47,8 @@ func build() {
 
 	articleTpl := buildTpl(filepath.Join(themePath, "article.html"), partialTpl, "article")
 	indexTpl := buildTpl(filepath.Join(themePath, "index.html"), partialTpl, "index")
-
-	//log.Info(articleTpl)
-	//log.Info(indexTpl)
+	aboutTpl := buildTpl(filepath.Join(themePath, "about.html"), partialTpl, "about")
+	archiveTpl := buildTpl(filepath.Join(themePath, "archive.html"), partialTpl, "archive")
 
 	publicPath := filepath.Join(rootPath, "public")
 	cleanPatterns := []string{"static", "js", "css", "img", "vendor", "*.html"}
@@ -61,11 +60,13 @@ func build() {
 
 	sourcePath := filepath.Join(rootPath, "source")
 	articles := walkArticle(sourcePath)
-	render.RenderArticles(articleTpl, articles, publicPath)
+	renderPage := render.New(globalConfig.Site, publicPath)
+	renderPage.Articles(articleTpl, articles)
 	staticPath := filepath.Join(themePath, "static")
 	copyStaticFile(staticPath, publicPath)
-
-	render.RenderIndex(indexTpl, articles, publicPath)
+	renderPage.Index(indexTpl, articles)
+	renderPage.Archive(archiveTpl, articles)
+	renderPage.About(aboutTpl, filepath.Join(sourcePath, "about.md"))
 }
 
 func walkArticle(path string) []library.Article {
@@ -73,6 +74,11 @@ func walkArticle(path string) []library.Article {
 	filepath.Walk(path, func(path string, info os.FileInfo, err error) error {
 		fileExt := strings.ToLower(filepath.Ext(path))
 		if fileExt != ".md" {
+			return nil
+		}
+		fileName := filepath.Base(path)
+		noExtName := strings.TrimSuffix(fileName, ".md")
+		if noExtName == "about" {
 			return nil
 		}
 		var article library.Article
@@ -102,7 +108,6 @@ func buildPartialTpl(path string) string {
 		htmlStr := "{{define \"" + fileName + "\"}}" + string(html) + "{{end}}"
 		partialTpl += htmlStr
 	}
-	// log.Info(partialTpl)
 	return partialTpl
 }
 

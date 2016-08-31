@@ -7,7 +7,7 @@
                  <span class="sr-only">Toggle navigation</span>
                  Menu <i class="fa fa-bars"></i>
              </button>
-             <a class="navbar-brand" href="index.html">沉稳，不乏可爱</a>
+             <a class="navbar-brand" href="index.html">{{.Site.Title}}</a>
          </div>
 
          <!-- Collect the nav links, forms, and other content for toggling -->
@@ -17,10 +17,10 @@
                      <a href="index.html">Home</a>
                  </li>
                  <li>
-                     <a href="about.html">About</a>
+                     <a href="archive.html">Archive</a>
                  </li>
                  <li>
-                     <a href="article.html">Sample Post</a>
+                     <a href="about.html">About</a>
                  </li>
                  <li>
                      <a href="contact.html">Contact</a>

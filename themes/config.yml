@@ -1,6 +1,6 @@
 site:
-    title: cwen - 沉稳,不乏可爱
-    introduce: 代码, 笔记, 生活与闲扯
+    title: 沉稳,不乏可爱
+    introduce: cwen's code、note、life and anything 
     limit: 10
     theme: themes/default
     url: http://liujia.mom

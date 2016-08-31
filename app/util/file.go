@@ -36,10 +36,10 @@ func CopyFile(source, destPath string) error {
 		return fmt.Errorf("open source: %v", err)
 	}
 	destFile, err := os.Create(destPath)
+	defer destFile.Close()
 	if err != nil {
 		return fmt.Errorf("create destfile %v: %v", destPath, err)
 	}
-	defer destFile.Close()
 	_, err = io.Copy(destFile, sourceFile)
 	if err != nil {
 		return fmt.Errorf("copy %v to %v: %v", source, destPath, err)
