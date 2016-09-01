@@ -3,7 +3,7 @@
 {{template "nav" .}}
     <!-- Page Header -->
     <!-- Set your background image for this header on the line below. -->
-    <header class="intro-header" style="background-image: url('static/img/home-bg.jpg')">
+    <header class="intro-header" style="background-image: url('/static/img/home-bg.jpg')">
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
@@ -23,7 +23,7 @@
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
               {{range .Articles}}
                 <div class="post-preview">
-                    <a href="{{.Link}}">
+                    <a href="{{$.Site.URL}}/{{.Link}}">
                         <h2 class="post-title">
                             {{.ConfigArticle.Title}}
                         </h2>
@@ -40,12 +40,12 @@
                 <ul class="pager">
                 {{if .Prev}}
                     <li class="prev">
-                        <a href="{{.Prev}}">&larr;Prev</a>
+                        <a href="{{.Site.URL}}/{{.Prev}}">&larr; Prev</a>
                     </li>
                 {{end}}
                 {{if .Next}}
                     <li class="next">
-                        <a href="{{.Next}}">Next &rarr;</a>
+                        <a href="{{.Site.URL}}/{{.Next}}">Next &rarr;</a>
                     </li>
                 {{end}}
                 </ul>

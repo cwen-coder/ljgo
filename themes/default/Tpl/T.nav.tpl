@@ -7,23 +7,23 @@
                  <span class="sr-only">Toggle navigation</span>
                  Menu <i class="fa fa-bars"></i>
              </button>
-             <a class="navbar-brand" href="index.html">{{.Site.Title}}</a>
+             <a class="navbar-brand" href="{{.Site.URL}}/index.html">{{.Site.Title}}</a>
          </div>
 
          <!-- Collect the nav links, forms, and other content for toggling -->
          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
              <ul class="nav navbar-nav navbar-right">
                  <li>
-                     <a href="index.html">Home</a>
+                     <a href="{{.Site.URL}}/index.html">Home</a>
                  </li>
                  <li>
-                     <a href="archive.html">Archive</a>
+                     <a href="{{.Site.URL}}/archive.html">Archive</a>
                  </li>
                  <li>
-                     <a href="about.html">About</a>
+                     <a href="{{.Site.URL}}/about.html">About</a>
                  </li>
                  <li>
-                     <a href="atom.xml">RSS</a>
+                     <a href="{{.Site.URL}}/atom.xml">RSS</a>
                  </li>
              </ul>
          </div>

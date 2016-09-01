@@ -157,6 +157,35 @@ func (r *Render) About(tpl template.Template, path string) {
 	}
 }
 
+func (r *Render) Tags(tpl template.Template, articles library.Articles) {
+	var TagsMap = make(map[string]library.Articles)
+	for _, article := range articles {
+		for _, tag := range article.ConfigArticle.Tags {
+			TagsMap[tag] = append(TagsMap[tag], article)
+		}
+	}
+	err := os.MkdirAll(filepath.Join(r.Path, "tags"), 0777)
+	if err != nil {
+		log.Fatalf("madir tag: %v", err)
+	}
+	for tag, articlesT := range TagsMap {
+		link := filepath.Join(r.Path, "tags/"+tag+".html")
+		outfile, err := os.Create(link)
+		defer outfile.Close()
+		if err != nil {
+			log.Fatalf("creat article %v: %v", link, err)
+		}
+		var data = make(map[string]interface{})
+		data["Tag"] = tag
+		data["Articles"] = articlesT
+		data["Site"] = r.Site
+		err = tpl.Execute(outfile, data)
+		if err != nil {
+			log.Fatalf("Execute %v.html: %v", tag, err)
+		}
+	}
+}
+
 func (r *Render) RSS(articles library.Articles) {
 	var feedArticles library.Articles
 	if len(articles) > r.Site.Limit {

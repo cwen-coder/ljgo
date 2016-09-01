@@ -50,6 +50,7 @@ func build() {
 	indexTpl := buildTpl(filepath.Join(themePath, "index.html"), partialTpl, "index")
 	aboutTpl := buildTpl(filepath.Join(themePath, "about.html"), partialTpl, "about")
 	archiveTpl := buildTpl(filepath.Join(themePath, "archive.html"), partialTpl, "archive")
+	tagTpl := buildTpl(filepath.Join(themePath, "tag.html"), partialTpl, "tag")
 
 	publicPath := filepath.Join(rootPath, "public")
 	cleanPatterns := []string{"static", "js", "css", "img", "vendor", "*.html", "*.xml"}
@@ -68,6 +69,7 @@ func build() {
 	renderPage.Index(indexTpl, articles)
 	renderPage.Archive(archiveTpl, articles)
 	renderPage.About(aboutTpl, filepath.Join(sourcePath, "about.md"))
+	renderPage.Tags(tagTpl, articles)
 	renderPage.RSS(articles)
 }
 

@@ -9,8 +9,8 @@
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                     <div class="post-heading">
-                        <h1>{{.Article.ConfigArticle.Title}}</h1>
-                        <span class="meta">Posted by <a href="#">{{.Article.ConfigArticle.Author}}</a> {{.Article.ConfigArticle.Date}}</span>
+                        <h1>Tag: {{.Tag}}</h1>
+                        <span>All articles with tag of {{.Tag}}</span>
                     </div>
                 </div>
             </div>
@@ -21,23 +21,24 @@
     <article>
         <div class="container">
             <div class="row">
-                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                 {{range .Article.ConfigArticle.Tags}}
-                    <a href="{{$.Site.URL}}/tags/{{.}}.html"><span class='glyphicon glyphicon-tags tags' aria-hidden="true" ></span>&nbsp;<span>{{.}}</span></a>
-                {{end}}
-                </div>
             </div>
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                    {{.Article.Content}}
+                {{range .Articles}}
+                    <div class="post-preview">
+                        <a href="{{$.Site.URL}}/{{.Link}}">
+                            <span>
+                            {{.ConfigArticle.Title}}
+                            </span>
+                        </a>
+                    </div>
+                {{end}}
                 </div>
             </div>
         </div>
     </article>
     
     <hr>
-
-{{template "comment" .}}
 {{template "footer" .}}
 
 </body>

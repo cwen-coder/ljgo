@@ -35,20 +35,20 @@
                     </li>
                     {{end}}
                 </ul>
-                <p class="copyright text-muted">Copyright &copy; Your Website 2016</p>
+                <p class="copyright text-muted">Powered by <a href="">ljgo</a> &nbsp;  </a> &copy; 2016 &nbsp;<a href="{{.Site.URL}}">{{.Site.Title}}</p>
             </div>
         </div>
     </div>
 </footer>
 <!-- jQuery -->
-<script src="static/vendor/jquery/jquery.min.js"></script>
+<script src="/static/vendor/jquery/jquery.min.js"></script>
 
 <!-- Bootstrap Core JavaScript -->
-<script src="static/vendor/bootstrap/js/bootstrap.min.js"></script>
+<script src="/static/vendor/bootstrap/js/bootstrap.min.js"></script>
 
 <!-- Contact Form JavaScript -->
-<script src="static/js/jqBootstrapValidation.js"></script>
-<script src="static/js/contact_me.js"></script>
+<script src="/static/js/jqBootstrapValidation.js"></script>
+<script src="/static/js/contact_me.js"></script>
 
 <!-- Theme JavaScript -->
-<script src="static/js/clean-blog.js"></script>
+<script src="/static/js/clean-blog.js"></script>
