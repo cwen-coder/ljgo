@@ -7,6 +7,7 @@ import (
 	"os"
 	"os/signal"
 	"path/filepath"
+	"sort"
 	"strings"
 	"syscall"
 
@@ -69,8 +70,8 @@ func build() {
 	renderPage.About(aboutTpl, filepath.Join(sourcePath, "about.md"))
 }
 
-func walkArticle(path string) []library.Article {
-	articles := make([]library.Article, 0)
+func walkArticle(path string) library.Articles {
+	articles := make(library.Articles, 0)
 	filepath.Walk(path, func(path string, info os.FileInfo, err error) error {
 		fileExt := strings.ToLower(filepath.Ext(path))
 		if fileExt != ".md" {
@@ -89,6 +90,7 @@ func walkArticle(path string) []library.Article {
 		articles = append(articles, article)
 		return nil
 	})
+	sort.Sort(articles)
 	return articles
 }
 

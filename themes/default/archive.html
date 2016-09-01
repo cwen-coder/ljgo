@@ -19,16 +19,17 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-              {{range .Articles}}
+              {{range .Archives}}
+                <h2>{{.Year}}</h2>
+                {{range .Articles}}
                 <div class="post-preview">
                     <a href="{{.Link}}">
-                        <h3 >
+                        <span>
                             {{.ConfigArticle.Title}}
-                        </h3>
+                        </span>
                     </a>
-                    <p class="post-meta">Posted by <a href="#">{{.ConfigArticle.Author}}</a> {{.ConfigArticle.Date}}</p>
                 </div>
-                <hr>
+                {{end}}
               {{end}}
             </div>
         </div>

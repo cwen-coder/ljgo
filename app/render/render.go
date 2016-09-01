@@ -24,7 +24,7 @@ func New(site library.SiteConfig, path string) *Render {
 	}
 }
 
-func (r *Render) Articles(tpl template.Template, articles []library.Article) {
+func (r *Render) Articles(tpl template.Template, articles library.Articles) {
 	for _, article := range articles {
 		link := filepath.Join(r.Path, article.Link)
 		outfile, err := os.Create(link)
@@ -42,7 +42,7 @@ func (r *Render) Articles(tpl template.Template, articles []library.Article) {
 	}
 }
 
-func (r *Render) Index(tpl template.Template, articles []library.Article) {
+func (r *Render) Index(tpl template.Template, articles library.Articles) {
 	link := filepath.Join(r.Path, "index.html")
 	outfile, err := os.Create(link)
 	defer outfile.Close()
@@ -59,15 +59,29 @@ func (r *Render) Index(tpl template.Template, articles []library.Article) {
 	}
 }
 
-func (r *Render) Archive(tpl template.Template, articles []library.Article) {
+func (r *Render) Archive(tpl template.Template, articles library.Articles) {
 	link := filepath.Join(r.Path, "archive.html")
 	outfile, err := os.Create(link)
 	defer outfile.Close()
 	if err != nil {
 		log.Fatalf("creat archive.html: %v", err)
 	}
+
+	var articleMap = make(map[int][]library.Article)
+	for _, article := range articles {
+		articleMap[article.Date.Year()] = append(articleMap[article.Date.Year()], article)
+	}
+
+	var archives library.Archives
+	for year, articlesT := range articleMap {
+		archive := library.Archive{
+			Year:     year,
+			Articles: articlesT,
+		}
+		archives = append(archives, archive)
+	}
 	var data = make(map[string]interface{})
-	data["Articles"] = articles
+	data["Archives"] = archives
 	data["Site"] = r.Site
 
 	err = tpl.Execute(outfile, data)

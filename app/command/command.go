@@ -26,3 +26,17 @@ func InitRootPath(c *cli.Context) {
 		rootPath = "."
 	}
 }
+
+//type Collections []interface{}
+
+//func (c Collections) Len() int {
+//return len(c)
+//}
+
+//func (c Collections) Swap(i, j int) {
+//c[i], c[j] = c[i], c[j]
+//}
+
+//func (c Collections) Less(i, j int) bool {
+
+//}

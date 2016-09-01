@@ -23,7 +23,7 @@
                      <a href="about.html">About</a>
                  </li>
                  <li>
-                     <a href="contact.html">Contact</a>
+                     <a href="contact.html">RSS</a>
                  </li>
              </ul>
          </div>
