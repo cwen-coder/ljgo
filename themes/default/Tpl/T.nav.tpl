@@ -23,7 +23,7 @@
                      <a href="about.html">About</a>
                  </li>
                  <li>
-                     <a href="contact.html">RSS</a>
+                     <a href="atom.xml">RSS</a>
                  </li>
              </ul>
          </div>
