@@ -14,11 +14,10 @@ type SiteConfig struct {
 	Theme     string `yaml:"theme"`
 	URL       string `yaml:"url"`
 	Comment   string `yaml:"comment"`
+	Github    string `yaml:"github"`
+	Facebook  string `yaml:"facebook"`
+	Twitter   string `yaml:"twitter"`
 }
-
-//type AuthorConfig struct {
-//Name string `yaml:"name"`
-//}
 
 type BuildConfig struct {
 	Port    string   `yaml:"port"`
@@ -27,8 +26,7 @@ type BuildConfig struct {
 }
 
 type Config struct {
-	Site SiteConfig `yaml:"site"`
-	//Author AuthorConfig `yaml:"author"`
+	Site  SiteConfig  `yaml:"site"`
 	Build BuildConfig `yaml:"build"`
 }
 

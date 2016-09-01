@@ -5,6 +5,9 @@ site:
     theme: themes/default
     url: http://liujia.mom
     comment: cwengo
+    github: https://github.com/cwen-coder
+    facebook: 
+    twitter: 
 build:
     port: 3000
     copy: 
