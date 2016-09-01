@@ -37,11 +37,13 @@
               {{end}}
                 
                 <!-- Pager -->
+                {{if .Next}}
                 <ul class="pager">
                     <li class="next">
-                        <a href="#">Older Posts &rarr;</a>
+                        <a href="{{.Next}}">Next &rarr;</a>
                     </li>
                 </ul>
+                {{end}}
             </div>
         </div>
     </div>

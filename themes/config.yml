@@ -1,7 +1,7 @@
 site:
     title: 沉稳,不乏可爱
     introduce: cwen's code、note、life and anything 
-    limit: 10
+    limit: 1
     theme: themes/default
     url: http://liujia.mom
     comment: cwengo
