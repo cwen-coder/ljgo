@@ -52,7 +52,7 @@ func build() {
 	archiveTpl := buildTpl(filepath.Join(themePath, "archive.html"), partialTpl, "archive")
 
 	publicPath := filepath.Join(rootPath, "public")
-	cleanPatterns := []string{"static", "js", "css", "img", "vendor", "*.html"}
+	cleanPatterns := []string{"static", "js", "css", "img", "vendor", "*.html", "*.xml"}
 	cleanTpl(publicPath, cleanPatterns)
 	err := os.MkdirAll(publicPath, 0777)
 	if err != nil {
@@ -68,6 +68,7 @@ func build() {
 	renderPage.Index(indexTpl, articles)
 	renderPage.Archive(archiveTpl, articles)
 	renderPage.About(aboutTpl, filepath.Join(sourcePath, "about.md"))
+	renderPage.RSS(articles)
 }
 
 func walkArticle(path string) library.Articles {

@@ -6,7 +6,9 @@ import (
 	"os"
 	"path/filepath"
 	"strconv"
+	"time"
 
+	"github.com/gorilla/feeds"
 	"github.com/qiniu/log"
 
 	"git.cwengo.com/cwen/ljgo/app/library"
@@ -152,5 +154,53 @@ func (r *Render) About(tpl template.Template, path string) {
 	err = tpl.Execute(outfile, data)
 	if err != nil {
 		log.Fatalf("Execute about.html: %v", err)
+	}
+}
+
+func (r *Render) RSS(articles library.Articles) {
+	var feedArticles library.Articles
+	if len(articles) > r.Site.Limit {
+		feedArticles = articles[0:r.Site.Limit]
+	} else {
+		feedArticles = articles
+	}
+	if r.Site.URL == "" {
+		return
+	}
+	feed := &feeds.Feed{
+		Title:       r.Site.Title,
+		Link:        &feeds.Link{Href: r.Site.URL},
+		Description: r.Site.Introduce,
+		Created:     time.Now(),
+		Items:       make([]*feeds.Item, 0),
+	}
+	for _, item := range feedArticles {
+		feed.Items = append(feed.Items, &feeds.Item{
+			Title:       item.ConfigArticle.Title,
+			Link:        &feeds.Link{Href: r.Site.URL + "/" + item.Link},
+			Description: string(item.Content),
+			Author:      &feeds.Author{Name: item.ConfigArticle.Author},
+			Created:     item.Date,
+			Updated:     item.Update,
+		})
+	}
+	atom, err := feed.ToAtom()
+	if err != nil {
+		log.Fatalf("rss ToAtom: %v", err)
+	}
+	path := filepath.Join(r.Path, "atom.xml")
+	if _, err := os.Stat(path); err != nil {
+		if !os.IsNotExist(err) {
+			log.Fatalf("open atom.xml: %v", err)
+		}
+		file, err := os.Create(path)
+		if err != nil {
+			log.Fatalf("create atom.xml: %v", err)
+		}
+		file.Close()
+	}
+	err = ioutil.WriteFile(path, []byte(atom), 0644)
+	if err != nil {
+		log.Fatalf("write atom.xml: %v", err)
 	}
 }
