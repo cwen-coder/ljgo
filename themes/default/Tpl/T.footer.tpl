@@ -51,4 +51,4 @@
 <script src="static/js/contact_me.js"></script>
 
 <!-- Theme JavaScript -->
-<script src="static/js/clean-blog.min.js"></script>
+<script src="static/js/clean-blog.js"></script>

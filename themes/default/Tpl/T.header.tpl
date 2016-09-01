@@ -15,7 +15,7 @@
     <link href="static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Theme CSS -->
-    <link href="static/css/clean-blog.min.css" rel="stylesheet">
+    <link href="static/css/clean-blog.css" rel="stylesheet">
 
     <!-- Custom Fonts -->
     <link href="static/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
