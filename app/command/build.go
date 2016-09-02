@@ -30,7 +30,7 @@ func runBuild(c *cli.Context) error {
 	signalChan := make(chan os.Signal)
 	signal.Notify(signalChan, syscall.SIGINT, syscall.SIGTERM)
 
-	InitRootPath(c)
+	Init(c)
 	build()
 
 	go func() {
