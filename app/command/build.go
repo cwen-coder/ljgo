@@ -20,19 +20,19 @@ import (
 )
 
 var CmdBuild = cli.Command{
-	Name:   "build",
-	Usage:  "Generate blog to pubilc folder",
+	Name:  "build",
+	Usage: "Generate blog to pubilc folder",
+	Flags: []cli.Flag{
+		pathFlag,
+	},
 	Action: runBuild,
 }
 
 func runBuild(c *cli.Context) error {
-
 	signalChan := make(chan os.Signal)
 	signal.Notify(signalChan, syscall.SIGINT, syscall.SIGTERM)
-
 	Init(c)
 	build()
-
 	go func() {
 		<-signalChan
 		fmt.Println()

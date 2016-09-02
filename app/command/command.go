@@ -14,8 +14,8 @@ var rootPath string
 
 func Init(c *cli.Context) {
 	var err error
-	if len(c.Args()) > 0 {
-		rootPath = c.Args()[0]
+	if len(c.String("path")) > 0 {
+		rootPath = c.String("path")
 	} else {
 		rootPath = "."
 	}
