@@ -1,16 +1,16 @@
 site:
-    title: 沉稳,不乏可爱
-    introduce: cwen's code、note、life and anything 
+    title: cwen's blog
+    introduce: 沉稳，不乏可爱
     limit: 1
     theme: themes/default
-    url: 
+    url:
     comment: cwengo
     github: https://github.com/cwen-coder
-    facebook: 
-    twitter: 
+    facebook:
+    twitter:
 build:
     port: 3000
-    copy: 
+    copy:
         - "sdsdsd"
     publish: fdfdf
 
