@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"html/template"
 	"io/ioutil"
+	"strconv"
 	"strings"
 	"time"
 
@@ -65,7 +66,8 @@ func (a *Article) ParseArticle(path string) error {
 	if err != nil {
 		return err
 	}
-	a.Link = a.ConfigArticle.Title + ".html"
+	year := strconv.Itoa(a.Date.Year())
+	a.Link = year + "/" + a.ConfigArticle.Title + ".html"
 
 	a.ParseMarkdown(contentStr)
 

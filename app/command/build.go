@@ -63,14 +63,14 @@ func build() {
 	sourcePath := filepath.Join(rootPath, "source")
 	articles := walkArticle(sourcePath)
 	renderPage := render.New(globalConfig.Site, publicPath)
-	renderPage.Articles(articleTpl, articles)
-	staticPath := filepath.Join(themePath, "static")
-	copyStaticFile(staticPath, publicPath)
 	renderPage.Index(indexTpl, articles)
 	renderPage.Archive(archiveTpl, articles)
 	renderPage.About(aboutTpl, filepath.Join(sourcePath, "about.md"))
 	renderPage.Tags(tagTpl, articles)
 	renderPage.RSS(articles)
+	renderPage.Articles(articleTpl, articles)
+	staticPath := filepath.Join(themePath, "static")
+	copyStaticFile(staticPath, publicPath)
 }
 
 func walkArticle(path string) library.Articles {

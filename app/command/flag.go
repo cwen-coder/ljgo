@@ -8,4 +8,10 @@ var (
 		Value: "template",
 		Usage: "blog path",
 	}
+
+	addrFlag = cli.StringFlag{
+		Name: "addr", 
+		Value: "localhost:3000", 
+		Usage : "blog serve addr"
+	}
 )

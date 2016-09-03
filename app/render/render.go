@@ -106,6 +106,10 @@ func (r *Render) Archive(tpl template.Template, articles library.Articles) {
 
 	var archives library.Archives
 	for year, articlesT := range articleMap {
+		err := os.MkdirAll(r.Path+"/"+strconv.Itoa(year), 0777)
+		if err != nil {
+			log.Fatalf("mkdir %v: %v", year, err)
+		}
 		archive := library.Archive{
 			Year:     year,
 			Articles: articlesT,
