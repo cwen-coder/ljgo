@@ -27,7 +27,7 @@ type ServeConfig struct {
 }
 
 type PublishConfig struct {
-	Cmd string `yaml"cmd"`
+	Cmd string `yaml:"cmd"`
 }
 
 type Config struct {
