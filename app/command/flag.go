@@ -11,7 +11,7 @@ var (
 
 	addrFlag = cli.StringFlag{
 		Name:  "addr",
-		Value: "localhost:3000",
+		Value: "",
 		Usage: "blog serve addr",
 	}
 )
