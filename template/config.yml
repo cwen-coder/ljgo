@@ -8,9 +8,8 @@ site:
     github: https://github.com/cwen-coder
     facebook:
     twitter:
-build:
-    port: 3000
-    copy:
-        - "sdsdsd"
-    publish: fdfdf
+serve:
+    addr: localhost:3000
+public:
+    cmd: 
 

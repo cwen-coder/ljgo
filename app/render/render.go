@@ -11,19 +11,20 @@ import (
 	"github.com/gorilla/feeds"
 	"github.com/qiniu/log"
 
+	"git.cwengo.com/cwen/ljgo/app/config"
 	"git.cwengo.com/cwen/ljgo/app/library"
 	"git.cwengo.com/cwen/ljgo/app/util"
 )
 
 type Render struct {
-	Site library.SiteConfig
+	Site config.SiteConfig
 	Path string
 }
 
-func New(site library.SiteConfig, path string) *Render {
+func New(cfg *config.Config) *Render {
 	return &Render{
-		Site: site,
-		Path: path,
+		Site: cfg.Site,
+		Path: cfg.PublicPath,
 	}
 }
 

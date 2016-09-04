@@ -6,6 +6,8 @@ import (
 	"path"
 	"path/filepath"
 
+	"git.cwengo.com/cwen/ljgo/app/config"
+
 	"github.com/codegangsta/negroni"
 	"github.com/qiniu/log"
 	"github.com/urfave/cli"
@@ -23,36 +25,35 @@ var CmdServer = cli.Command{
 }
 
 func runServe(c *cli.Context) error {
-	initConfig(c)
-	build()
-	watch(c)
-	serve(c)
+	cfg, err := config.New(c)
+	if err != nil {
+		log.Fatalf("config: %v", err)
+	}
+	build(cfg)
+	watch(c, cfg)
+	serve(cfg)
 	return nil
 }
 
-func serve(c *cli.Context) {
-	dir := rootPath + "/public"
-	addr := c.String("addr")
+func serve(cfg *config.Config) {
 	n := negroni.New()
-	n.Use(negroni.NewStatic(http.Dir(dir)))
+	n.Use(negroni.NewStatic(http.Dir(cfg.PublicPath)))
+	addr := cfg.Serve.Addr
 	if addr == "" {
 		addr = ":3000"
 	}
 	n.Run(addr)
 }
 
-func watch(c *cli.Context) {
+func watch(c *cli.Context, cfg *config.Config) {
 	watcher, err := fsnotify.NewWatcher()
 	if err != nil {
 		log.Fatal(err)
 	}
-	// defer watcher.Close()
-
 	go func() {
 		for {
 			select {
 			case event := <-watcher.Events:
-				log.Info(event)
 				if event.Op != fsnotify.Chmod {
 					log.Println("modified file:", event.Name)
 					runBuild(c)
@@ -62,9 +63,9 @@ func watch(c *cli.Context) {
 			}
 		}
 	}()
-	watcher.Add(filepath.Join(rootPath, "config.yml"))
-	watchDir(watcher, filepath.Join(rootPath, "source"))
-	watchDir(watcher, filepath.Join(rootPath, "themes"))
+	watcher.Add(filepath.Join(cfg.RootPath, "config.yml"))
+	watchDir(watcher, filepath.Join(cfg.RootPath, "source"))
+	watchDir(watcher, filepath.Join(cfg.RootPath, "themes"))
 }
 
 func watchDir(watcher *fsnotify.Watcher, srcDir string) {

@@ -8,10 +8,10 @@ import (
 	"sort"
 	"strings"
 
+	"git.cwengo.com/cwen/ljgo/app/config"
 	"git.cwengo.com/cwen/ljgo/app/library"
 	"git.cwengo.com/cwen/ljgo/app/render"
 	"git.cwengo.com/cwen/ljgo/app/util"
-
 	"github.com/qiniu/log"
 	"github.com/urfave/cli"
 )
@@ -26,41 +26,40 @@ var CmdBuild = cli.Command{
 }
 
 func runBuild(c *cli.Context) error {
-	initConfig(c)
-	build()
+	cfg, err := config.New(c)
+	if err != nil {
+		log.Fatalf("config: %v", err)
+	}
+	build(cfg)
 	return nil
 }
 
-func build() {
-	themePath := filepath.Join(rootPath, globalConfig.Site.Theme)
-	partialPath := filepath.Join(themePath, "Tpl")
+func build(cfg *config.Config) {
+	partialPath := filepath.Join(cfg.ThemePath, "Tpl")
 	partialTpl := buildPartialTpl(partialPath)
+	articleTpl := buildTpl(filepath.Join(cfg.ThemePath, "article.html"), partialTpl, "article")
+	indexTpl := buildTpl(filepath.Join(cfg.ThemePath, "index.html"), partialTpl, "index")
+	aboutTpl := buildTpl(filepath.Join(cfg.ThemePath, "about.html"), partialTpl, "about")
+	archiveTpl := buildTpl(filepath.Join(cfg.ThemePath, "archive.html"), partialTpl, "archive")
+	tagTpl := buildTpl(filepath.Join(cfg.ThemePath, "tag.html"), partialTpl, "tag")
 
-	articleTpl := buildTpl(filepath.Join(themePath, "article.html"), partialTpl, "article")
-	indexTpl := buildTpl(filepath.Join(themePath, "index.html"), partialTpl, "index")
-	aboutTpl := buildTpl(filepath.Join(themePath, "about.html"), partialTpl, "about")
-	archiveTpl := buildTpl(filepath.Join(themePath, "archive.html"), partialTpl, "archive")
-	tagTpl := buildTpl(filepath.Join(themePath, "tag.html"), partialTpl, "tag")
-
-	publicPath := filepath.Join(rootPath, "public")
 	cleanPatterns := []string{"static", "js", "css", "img", "vendor", "*.html", "*.xml"}
-	cleanTpl(publicPath, cleanPatterns)
-	err := os.MkdirAll(publicPath, 0777)
+	cleanTpl(cfg.PublicPath, cleanPatterns)
+	err := os.MkdirAll(cfg.PublicPath, 0777)
 	if err != nil {
-		log.Fatalf("create %v: %v", publicPath, err)
+		log.Fatalf("create %v: %v", cfg.PublicPath, err)
 	}
 
-	sourcePath := filepath.Join(rootPath, "source")
-	articles := walkArticle(sourcePath)
-	renderPage := render.New(globalConfig.Site, publicPath)
+	articles := walkArticle(cfg.SourcePath)
+	renderPage := render.New(cfg)
 	renderPage.Index(indexTpl, articles)
 	renderPage.Archive(archiveTpl, articles)
-	renderPage.About(aboutTpl, filepath.Join(sourcePath, "about.md"))
+	renderPage.About(aboutTpl, filepath.Join(cfg.SourcePath, "about.md"))
 	renderPage.Tags(tagTpl, articles)
 	renderPage.RSS(articles)
 	renderPage.Articles(articleTpl, articles)
-	staticPath := filepath.Join(themePath, "static")
-	copyStaticFile(staticPath, publicPath)
+	staticPath := filepath.Join(cfg.ThemePath, "static")
+	copyStaticFile(staticPath, cfg.PublicPath)
 }
 
 func walkArticle(path string) library.Articles {
