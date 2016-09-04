@@ -1,7 +1,7 @@
 site:
     title: cwen's blog
     introduce: 沉稳，不乏可爱
-    limit: 1
+    limit: 10
     theme: themes/default
     url:
     comment: cwengo
@@ -10,6 +10,9 @@ site:
     twitter:
 serve:
     addr: localhost:3000
-public:
-    cmd: 
+publish:
+    cmd: | 
+        git add -A  
+        git commit -m "update"
+        git push origin
 

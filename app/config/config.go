@@ -26,9 +26,14 @@ type ServeConfig struct {
 	Addr string `yaml:"addr"`
 }
 
+type PublishConfig struct {
+	Cmd string `yaml"cmd"`
+}
+
 type Config struct {
-	Site       SiteConfig  `yaml:"site"`
-	Serve      ServeConfig `yaml:"serve"`
+	Site       SiteConfig    `yaml:"site"`
+	Serve      ServeConfig   `yaml:"serve"`
+	Publish    PublishConfig `yaml:"publish"`
 	RootPath   string
 	ThemePath  string
 	SourcePath string
