@@ -1,15 +1,12 @@
 package command
 
 import (
-	"fmt"
 	"html/template"
 	"io/ioutil"
 	"os"
-	"os/signal"
 	"path/filepath"
 	"sort"
 	"strings"
-	"syscall"
 
 	"git.cwengo.com/cwen/ljgo/app/library"
 	"git.cwengo.com/cwen/ljgo/app/render"
@@ -29,19 +26,12 @@ var CmdBuild = cli.Command{
 }
 
 func runBuild(c *cli.Context) error {
-	signalChan := make(chan os.Signal)
-	signal.Notify(signalChan, syscall.SIGINT, syscall.SIGTERM)
-	Init(c)
-	build()
-	go func() {
-		<-signalChan
-		fmt.Println()
-		os.Exit(0)
-	}()
+	initConfig(c)
+	build(c)
 	return nil
 }
 
-func build() {
+func build(c *cli.Context) {
 	themePath := filepath.Join(rootPath, globalConfig.Site.Theme)
 	partialPath := filepath.Join(themePath, "Tpl")
 	partialTpl := buildPartialTpl(partialPath)

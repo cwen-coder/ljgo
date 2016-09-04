@@ -1,11 +1,9 @@
 package command
 
 import (
-	"fmt"
-	"os"
-	"os/signal"
-	"syscall"
+	"net/http"
 
+	"github.com/codegangsta/negroni"
 	"github.com/urfave/cli"
 )
 
@@ -20,21 +18,23 @@ var CmdServer = cli.Command{
 }
 
 func runServe(c *cli.Context) error {
-	signalChan := make(chan os.Signal)
-	signal.Notify(signalChan, syscall.SIGINT, syscall.SIGTERM)
-	Init(c)
-	build()
-	serve()
-	go func() {
-		<-signalChan
-		fmt.Println()
-		os.Exit(0)
-	}()
+	initConfig(c)
+	build(c)
+	serve(c)
 	return nil
 }
 
-func serve() {
+func serve(c *cli.Context) {
+	dir := rootPath + "/public"
+	addr := c.String("addr")
+	n := negroni.New()
+	n.Use(negroni.NewStatic(http.Dir(dir)))
+	if addr == "" {
+		addr = ":3000"
+	}
+	n.Run(addr)
 }
 
 func watch() {
+
 }
