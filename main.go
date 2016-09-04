@@ -32,8 +32,8 @@ func main() {
 	app.Commands = []cli.Command{
 		command.CmdBuild,
 		command.CmdPublish,
-		command.CmdServer,
+		command.CmdServe,
+		command.CmdInfo,
 	}
-	// app.Flags = append(app.Flags, []cli.Flag{}...)
 	app.Run(os.Args)
 }
