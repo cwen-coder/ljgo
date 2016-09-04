@@ -77,9 +77,15 @@ func (a *Article) ParseArticle(path string) error {
 func (a *Article) ParseDate(date, update string) error {
 
 	var err error
+	if date == "" {
+		date = time.Now().Format("2006-01-02")
+	}
 	a.Date, err = util.ParseDate(date)
 	if err != nil {
 		return fmt.Errorf("parse date: %v", err)
+	}
+	if update == "" {
+		update = date
 	}
 	a.Update, err = util.ParseDate(update)
 	if err != nil {

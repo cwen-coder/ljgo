@@ -27,11 +27,11 @@ var CmdBuild = cli.Command{
 
 func runBuild(c *cli.Context) error {
 	initConfig(c)
-	build(c)
+	build()
 	return nil
 }
 
-func build(c *cli.Context) {
+func build() {
 	themePath := filepath.Join(rootPath, globalConfig.Site.Theme)
 	partialPath := filepath.Join(themePath, "Tpl")
 	partialTpl := buildPartialTpl(partialPath)
@@ -78,7 +78,8 @@ func walkArticle(path string) library.Articles {
 		var article library.Article
 		err = article.ParseArticle(path)
 		if err != nil {
-			log.Fatal(err)
+			log.Errorf("parse article: %v", err)
+			return nil
 		}
 		articles = append(articles, article)
 		return nil
