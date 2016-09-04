@@ -22,7 +22,7 @@ import (
 	"github.com/urfave/cli"
 )
 
-const APP_VER = "0.0.1-beat"
+const APP_VER = "0.1.0-beat"
 
 func main() {
 	app := cli.NewApp()
