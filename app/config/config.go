@@ -57,8 +57,8 @@ func New(c *cli.Context) (*Config, error) {
 	var config = &Config{
 		RootPath: ".",
 	}
-	if len(c.String("path")) > 0 {
-		config.RootPath = c.String("path")
+	if len(c.Args()) > 0 {
+		config.RootPath = c.Args()[0]
 	}
 	err := config.parseConfig()
 	if err != nil {

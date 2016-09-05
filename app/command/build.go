@@ -17,11 +17,8 @@ import (
 )
 
 var CmdBuild = cli.Command{
-	Name:  "build",
-	Usage: "Generate blog to pubilc folder",
-	Flags: []cli.Flag{
-		pathFlag,
-	},
+	Name:   "build",
+	Usage:  "Generate blog to pubilc folder",
 	Action: runBuild,
 }
 

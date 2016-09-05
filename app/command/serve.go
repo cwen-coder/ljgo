@@ -18,7 +18,6 @@ var CmdServe = cli.Command{
 	Name:  "serve",
 	Usage: "provide the webserver which builds and serves the site",
 	Flags: []cli.Flag{
-		pathFlag,
 		addrFlag,
 	},
 	Action: runServe,

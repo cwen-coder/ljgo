@@ -30,6 +30,7 @@ func main() {
 	app.Usage = "An elegant static blog generator"
 	app.Version = APP_VER
 	app.Commands = []cli.Command{
+		command.CmdNew,
 		command.CmdBuild,
 		command.CmdPublish,
 		command.CmdServe,

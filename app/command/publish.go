@@ -11,12 +11,8 @@ import (
 )
 
 var CmdPublish = cli.Command{
-	Name:  "publish",
-	Usage: "Generate blog to pubilc folder and publish",
-	Flags: []cli.Flag{
-		pathFlag,
-		addrFlag,
-	},
+	Name:   "publish",
+	Usage:  "Generate blog to pubilc folder and publish",
 	Action: runPublic,
 }
 
