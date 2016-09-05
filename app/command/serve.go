@@ -15,11 +15,8 @@ import (
 )
 
 var CmdServe = cli.Command{
-	Name:  "serve",
-	Usage: "provide the webserver which builds and serves the site",
-	Flags: []cli.Flag{
-		addrFlag,
-	},
+	Name:   "serve",
+	Usage:  "provide the webserver which builds and serves the site",
 	Action: runServe,
 }
 

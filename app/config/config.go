@@ -67,8 +67,5 @@ func New(c *cli.Context) (*Config, error) {
 	config.ThemePath = filepath.Join(config.RootPath, config.Site.Theme)
 	config.SourcePath = filepath.Join(config.RootPath, "source")
 	config.PublicPath = filepath.Join(config.RootPath, "public")
-	if c.String("addr") != "" {
-		config.Serve.Addr = c.String("addr")
-	}
 	return config, nil
 }
