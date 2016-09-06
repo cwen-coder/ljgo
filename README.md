@@ -1,4 +1,4 @@
-i# ljgo - 静态博客引擎
+# ljgo - 静态博客引擎
 
 ljgo 是使用 [GO](https://golang.org) 语言实现的简单静态博客引擎, 编译速度快、安装简单。
 
