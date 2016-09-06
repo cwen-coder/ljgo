@@ -16,7 +16,7 @@ make install
 
 #### 直接下载编译好的可执行文件
 
-下载地址 ： [ljgo]()
+下载地址 ： [ljgo](https://github.com/cwen-coder/ljgo/releases)
 
 ## 快速入门
 
