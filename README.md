@@ -118,7 +118,7 @@ ljgo publish
 # 执行站点配置中填写的发布脚本
 ```
 
-eg : 使用 `github`服务， 初始化好 `public｀ 文件夹后，我们只需要在 `config.yml` 文件中的填写如下内容：
+eg : 使用 `github`服务， 初始化好 `public`  文件夹后，我们只需要在 `config.yml` 文件中的填写如下内容：
 
 ```
 publish:
