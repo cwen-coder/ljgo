@@ -2,6 +2,7 @@ package command
 
 import (
 	"bufio"
+	"fmt"
 	"os/exec"
 	"runtime"
 
@@ -13,20 +14,20 @@ import (
 var CmdPublish = cli.Command{
 	Name:   "publish",
 	Usage:  "Generate blog to pubilc folder and publish",
-	Action: runPublic,
+	Action: runPublish,
 }
 
-func runPublic(c *cli.Context) error {
+func runPublish(c *cli.Context) error {
 	cfg, err := config.New(c)
 	if err != nil {
 		log.Fatalf("config: %v", err)
 	}
 	build(cfg)
-	public(cfg)
+	publish(cfg)
 	return nil
 }
 
-func public(cfg *config.Config) {
+func publish(cfg *config.Config) {
 	if cfg.Publish.Cmd == "" {
 		return
 	}
@@ -51,12 +52,12 @@ func public(cfg *config.Config) {
 	errStr := bufio.NewScanner(stderr)
 	go func() {
 		for outStr.Scan() {
-			log.Print(outStr.Text())
+			fmt.Print(outStr.Text())
 		}
 	}()
 	go func() {
 		for errStr.Scan() {
-			log.Print(errStr.Text())
+			fmt.Print(errStr.Text())
 		}
 	}()
 	cmd.Run()

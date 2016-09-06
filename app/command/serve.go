@@ -1,6 +1,7 @@
 package command
 
 import (
+	"fmt"
 	"io/ioutil"
 	"net/http"
 	"path"
@@ -51,7 +52,7 @@ func watch(c *cli.Context, cfg *config.Config) {
 			select {
 			case event := <-watcher.Events:
 				if event.Op != fsnotify.Chmod {
-					log.Println("modified file:", event.Name)
+					fmt.Println("modified file:", event.Name)
 					runBuild(c)
 				}
 			case err := <-watcher.Errors:

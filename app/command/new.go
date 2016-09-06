@@ -4,6 +4,7 @@ import (
 	"archive/zip"
 	"bytes"
 	"encoding/base64"
+	"fmt"
 	"io"
 	"io/ioutil"
 	"os"
@@ -49,7 +50,7 @@ func new(c *cli.Context) {
 		log.Fatal(err)
 	}
 
-	log.Println("Unpack init content zip")
+	fmt.Println("Unpack init content zip")
 	for _, zf := range z.File {
 		if zf.FileInfo().IsDir() {
 			continue
@@ -73,5 +74,5 @@ func new(c *cli.Context) {
 		f.Close()
 		rc.Close()
 	}
-	log.Println("Done")
+	fmt.Println("Done")
 }

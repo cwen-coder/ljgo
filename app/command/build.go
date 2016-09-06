@@ -40,7 +40,7 @@ func build(cfg *config.Config) {
 	archiveTpl := buildTpl(filepath.Join(cfg.ThemePath, "archive.html"), partialTpl, "archive")
 	tagTpl := buildTpl(filepath.Join(cfg.ThemePath, "tag.html"), partialTpl, "tag")
 
-	cleanPatterns := []string{"static", "js", "css", "img", "vendor", "*.html", "*.xml"}
+	cleanPatterns := []string{"static", "js", "css", "img", "vendor", "tags", "20*", "*.html", "*.xml"}
 	cleanTpl(cfg.PublicPath, cleanPatterns)
 	err := os.MkdirAll(cfg.PublicPath, 0777)
 	if err != nil {
