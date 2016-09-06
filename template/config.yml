@@ -1,11 +1,11 @@
 site:
-    title: cwen's blog
-    introduce: 沉稳，不乏可爱
+    title: ljgo 静态博客
+    introduce: 简单容易
     limit: 10
     theme: "themes/default"
     url:
-    comment: cwengo
-    github: "https://github.com/cwen-coder"
+    comment:
+    github:
     facebook:
     twitter:
 serve:
