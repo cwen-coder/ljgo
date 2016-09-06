@@ -93,8 +93,8 @@ ljgo build
 ```
 
 在站点文件夹中直接执行 `ljgo build` ， 或是在站点文件夹外执行但是得指定站点路径 eg
-:｀ljgo build ../example.com`
-｀ljgo serve` `ljgo publis` 都是同样的使用姿势
+: `ljgo build example.com`
+`ljgo serve` `ljgo publis` 都是同样的使用姿势
 
 
 #### 本地预览
