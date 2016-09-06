@@ -141,7 +141,7 @@ publish:
 
 ## 正在使用
 
-* [cwen's blog](http://cwen.pw)           - me
+* [cwen's blog](http://www.cwen.pw)           - me
 
 期待更多的用户
 
