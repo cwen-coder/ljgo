@@ -1,6 +1,6 @@
 GIT_COMMIT=$(shell git rev-parse HEAD)
 BUILD_TIME=$(shell date "+%Y-%m-%dT%H:%M:%S%z")
-	VERSION_FLAG=-ldflags="-X git.cwengo.com/cwen/ljgo/app/command.GitCommit=$(GIT_COMMIT) -X git.cwengo.com/cwen/ljgo/app/command.BuildTime=$(BUILD_TIME)"
+	VERSION_FLAG=-ldflags="-X github.com/cwen-coder/ljgo/app/command.GitCommit=$(GIT_COMMIT) -X github.com/cwen-coder/ljgo/app/command.BuildTime=$(BUILD_TIME)"
 
 all: b
 
