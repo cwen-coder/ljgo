@@ -6,7 +6,7 @@ import (
 	"os/exec"
 	"runtime"
 
-	"git.cwengo.com/cwen/ljgo/app/config"
+	"github.com/cwen-coder/ljgo/app/config"
 	"github.com/qiniu/log"
 	"github.com/urfave/cli"
 )

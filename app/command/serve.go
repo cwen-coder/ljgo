@@ -7,11 +7,10 @@ import (
 	"path"
 	"path/filepath"
 
-	"git.cwengo.com/cwen/ljgo/app/config"
-
-	"github.com/codegangsta/negroni"
+	"github.com/cwen-coder/ljgo/app/config"
 	"github.com/qiniu/log"
 	"github.com/urfave/cli"
+	"github.com/urfave/negroni"
 	"gopkg.in/fsnotify.v1"
 )
 

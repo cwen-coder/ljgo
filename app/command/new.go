@@ -11,8 +11,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	"git.cwengo.com/cwen/ljgo/app/util"
-
+	"github.com/cwen-coder/ljgo/app/util"
 	"github.com/qiniu/log"
 	"github.com/urfave/cli"
 )

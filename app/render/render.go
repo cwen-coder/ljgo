@@ -11,9 +11,9 @@ import (
 	"github.com/gorilla/feeds"
 	"github.com/qiniu/log"
 
-	"git.cwengo.com/cwen/ljgo/app/config"
-	"git.cwengo.com/cwen/ljgo/app/library"
-	"git.cwengo.com/cwen/ljgo/app/util"
+	"github.com/cwen-coder/ljgo/app/config"
+	"github.com/cwen-coder/ljgo/app/library"
+	"github.com/cwen-coder/ljgo/app/util"
 )
 
 type Render struct {

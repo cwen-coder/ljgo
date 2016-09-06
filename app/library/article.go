@@ -8,7 +8,7 @@ import (
 	"strings"
 	"time"
 
-	"git.cwengo.com/cwen/ljgo/app/util"
+	"github.com/cwen-coder/ljgo/app/util"
 
 	"gopkg.in/yaml.v2"
 )

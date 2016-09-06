@@ -17,8 +17,7 @@ package main
 import (
 	"os"
 
-	"git.cwengo.com/cwen/ljgo/app/command"
-
+	"github.com/cwen-coder/ljgo/app/command"
 	"github.com/urfave/cli"
 )
 

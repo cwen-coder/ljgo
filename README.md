@@ -10,7 +10,7 @@ ljgo 是使用 [GO](https://golang.org) 语言实现的简单静态博客引擎,
 go运行环境安装请自行google
 
 ```
-go get -u git.cwengo.com/cwen/ljgo
+go get -u github.com/cwen-coder/ljgo
 make install
 ```
 
